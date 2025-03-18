@@ -12,20 +12,20 @@ CREATE TABLE NCAA_Tournament_Stats (
     AdjOE FLOAT,
     AdjDE FLOAT,
     Barthag FLOAT,
-    EFG_ FLOAT,       -- EFG%
-    EFGD_ FLOAT,      -- EFGD%
+    EFG_ FLOAT,       
+    EFGD_ FLOAT,      
     TOR FLOAT,
     TORD FLOAT,
     ORB FLOAT,
     DRB FLOAT,
     FTR FLOAT,
     FTRD FLOAT,
-    TwoP_ FLOAT,      -- 2P%
-    TwoPD_ FLOAT,     -- 2P%D
-    ThreeP_ FLOAT,    -- 3P%
-    ThreePD_ FLOAT,   -- 3P%D
-    ThreePR FLOAT,    -- 3PR
-    ThreePRD FLOAT,   -- 3PRD
+    TwoP_ FLOAT,      
+    TwoPD_ FLOAT,     
+    ThreeP_ FLOAT,    
+    ThreePD_ FLOAT,   
+    ThreePR FLOAT,    
+    ThreePRD FLOAT,   
     Adj_T FLOAT,
     WAB FLOAT,
     PRIMARY KEY (Year, Rk)
