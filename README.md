@@ -3,7 +3,7 @@
 GOAL - predicting March Madness Sweet 16 outcome
 
 ## Repo
-- Lalala
+- [Project proposal](projectProposal.md)
 
 ## Resources
 - Lalala
