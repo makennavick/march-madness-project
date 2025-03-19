@@ -4,8 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROJECT 4 - MARCH MADNESS PREDICTIONS</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+
 </head>
 <body>
+    <div id="title">
+        <h1>MARCH MADNESS PREDICTIONS</h1>
+    </div>
     
+    <div>
+        <div class="dropdown">
+            <p><i>Choose a year:</i></p>
+            <select id="yearDropdown" onchange="yearChanged(this.value)">
+                <option disabled selected value> - </option>
+            </select>
+            <!-- following comment from prev project for reference: -->
+            <!-- <div class="data">
+                <div id="topTen">
+                    <h2 id="topTenHeader"></h2>
+                    <div class="simpleblurb">
+                        <ol id="sample-metadata"></ol>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 id="duration"></h2>
+                    <div id="bubble"></div>
+                </div>
+                
+                <div>
+                    <h2 id="artist"></h2>
+                    <div id="bar"></div>
+                </div>
+
+                <div>
+                    <h2 id="popularity"></h2>
+                    <div id="chart"></div>
+                </div>            
+            </div> -->
+        </div>
+    </div>
+
+    <div>
+        <div class="dropdown">
+            <p><i>Choose a year:</i></p>
+            <select id="roundDropdown" onchange="yearChanged(this.value)">
+                <option disabled selected value> - </option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <section class="main">
+            <h3>Description</h2>
+        </section>
+    </div>
+    
+    <div>
+        <section class="main">
+            <h3>Plots, analysis, etc.</h3>
+                <div id="ethanPlot">here is ethan's plot</div>
+        </section>
+    </div>
+
+    <div>
+        <section id="end-of-page">
+            <div class="sources">
+                <hr style="border: 1px solid orange; border-radius: 10px; margin-top: 100px;">
+                <div>Resources:
+                    <ul>
+                        <li> <a href="LINK TO OUR SOURCES">here is a null link</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    <script src="static/js/init.js"></script>
+
 </body>
 </html>
