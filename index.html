@@ -7,48 +7,71 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>
     <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chivo">
 
 </head>
 <body>
-    <div id="title">
-        <h1>MARCH MADNESS PREDICTIONS</h1>
-    </div>
-    
-    <div>
-        <div class="dropdown">
-            <p><i>Choose a year:</i></p>
-            <select id="yearDropdown" onchange="yearChanged(this.value)">
-                <option disabled selected value> - </option>
-            </select>
-        </div>
-    </div>
+    <section class="banner">
+        <h1 id="title">MARCH MADNESS PREDICTIONS</h1>
+        <hr class="section-break">
+    </section>
 
-    <!--  -->
     <div>
-        <div class="dropdown">
-            <p><i>Choose a year:</i></p>
-            <select id="roundDropdown" onchange="yearChanged(this.value)">
-                <option disabled selected value> - </option>
-            </select>
-        </div>
-    </div>
-    <div>
+        <hr class="section-break">
         <section class="main">
-            <h3>Description</h2>
+            <h3>View past brackets</h2>
+            <select id="bracketDropdown" onchange="bracketImage()">
+                <option disabled selected value></option>
+            </select>
+            <br>
+            <img id="bracket" src="https://www.ncaa.com/_flysystem/public-s3/styles/original/public-s3/images/2024/04/11/CollegeBasketball2024Bracket.png?itok=7Jb8MNtP">
         </section>
     </div>
     
+    <div class="dropdowns">
+        <h3>Select year, round, & statistic</h3>
+
+        <!-- YEAR -->
+        <div>
+            <p><i>Year:</i></p>
+            <select id="yearDropdown">
+                <option disabled selected value></option>
+            </select>
+        </div>
+
+        <!-- ROUND -->
+        <div>
+            <p><i>Round:</i></p>
+            <select id="roundDropdown">
+                <option disabled selected value></option>
+            </select>
+        </div>
+
+        <!-- STATS -->
+        <div>
+            <p><i>Stats:</i></p>
+            <select id="statsDropdown">
+                <option disabled selected value></option>
+            </select>
+        </div>
+        
+        <!-- GENERATE PLOT -->
+        <br>
+        <button id="button" onclick="submit()">Generate plot</button>
+    </div>
+
     <div>
+        <hr class="section-break"
         <section class="main">
             <h3>Plots, analysis, etc.</h3>
-                <div id="ethanPlot">here is ethan's plot</div>
+            <div id="bubble"></div>
         </section>
     </div>
 
     <div>
+        <hr class="section-break">
         <section id="end-of-page">
             <div class="sources">
-                <hr style="border: 1px solid orange; border-radius: 10px; margin-top: 100px;">
                 <div>Resources:
                     <ul>
                         <li> <a href="LINK TO OUR SOURCES">here is a null link</a> </li>
@@ -57,8 +80,9 @@
                 </div>
             </div>
         </section>
-
+    </div>
     <script src="static/js/index.js"></script>
+    <script src="static/js/init.js"></script>
 
 </body>
 </html>

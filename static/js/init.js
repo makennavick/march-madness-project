@@ -2,7 +2,7 @@
 
 // Create arrays of seeds who made it to each round
 async function roundArray(year, round, stat){
-    const response = await fetch('data/final_df.json');
+    const response = await fetch('Data_cleaning/final_df.json');
     const data = await response.json();
 
     console.log(data)
@@ -143,7 +143,7 @@ function init(year, round, stat){
     dropdownChanged(year, round, stat)
 }
 
-init('2016', 'Elite Eight', 'Seed')
+// init('2016', 'Elite Eight', 'Seed')
 
 
 
