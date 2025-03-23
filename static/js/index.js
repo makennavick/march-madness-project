@@ -34,9 +34,12 @@ function bracketImage(){
     if (bracketData[year]) {
         document.getElementById('bracket').src = bracketData[year];
         console.log('Updated image link:', bracketData[year]);
+        // make border styling visible
+        document.querySelector('#bracket').classList.add('visible');
     } else {
         console.log('Bracket data for the selected year not loaded yet.');
     }
+    
 }
 
 // load data

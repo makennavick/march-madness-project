@@ -4,14 +4,14 @@
 
 .banner {
     background-color: rgb(56,156,221);
-    padding: 15px; 
+    padding: 30px; 
     text-align: center; /* Center the text */
     position: fixed;
     width: 100%;
 }
 
 .banner h1 {
-    font-size: 3em; /* Make the heading larger */
+    font-size: 2em; /* Make the heading larger */
     color: white; /* Dark gray text color */
 }
 
@@ -24,9 +24,23 @@
     width: 900px;
 }
 
-.dropdowns {
-    padding: 50px;
+#bracket {
+    border-style: groove;
+    border-color: rgb(56,156,221);
+    border-radius: 5%;
 }
+ 
+#bracket {
+    display: none;
+}
+
+#bracket.visible {
+    display: block;
+}
+
+/* .dropdowns {
+    padding: 50px;
+} */
 
 
 .section-break {
@@ -37,5 +51,5 @@
 
 #bubble {
     width: 50%;
-    height: 1000px%
+    height: 1000px%;
 }
