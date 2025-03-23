@@ -53,3 +53,18 @@
     width: 50%;
     height: 1000px%;
 }
+/* 
+#image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  #image-container img:hover {
+    cursor: zoom-in;
+  } */
