@@ -6,7 +6,7 @@
 // fetch past bracket images
 bracketData = {}
 function loadPastBracketData() {
-    fetch('scratch/past_brackets2.txt')
+    fetch('static/webpage_stuff/past_brackets.txt')
         .then(response => response.text()) // Get the text content
         .then(data => {
         try {
@@ -23,7 +23,7 @@ function loadPastBracketData() {
 
 // identify dropdown location in index.html & create dropdown
 let bracketDropdown = d3.select('#bracketDropdown');
-for (let year = 1939; year < 2025; year++) {
+for (let year = 2024; year >= 1939; year--) {
     bracketDropdown.append("option").text(year)
 };
 
