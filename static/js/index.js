@@ -68,12 +68,11 @@ rounds.forEach((round) => {
 // stats
 let statsDropdown = d3.select('#statsDropdown');
 let stats = [
-    'CONF - Conference',
-    'G - Games',
-    'REC - Record',
-    'ADJOE - Adjust Offensive Efficiency',
-    'ADJDE - Adjusted Defensive Efficiency',
-    'BARTHAG - Power Rating (Change of beating average D1 Team)',
+    'Conf - Conference',
+    'Seed',
+    'AdjOE - Adjust Offensive Efficiency',
+    'AdjDE - Adjusted Defensive Efficiency',
+    'Barthag - Power Rating (Change of beating average D1 Team)',
     'EFG% - Effective Field Goal Percentage (Offensive)',
     'EFGD% -  Effective Field Goal Percentage (Defensive)',
     'TOR - Turnover Percentage (Offensive)',
@@ -88,7 +87,7 @@ let stats = [
     '3P%D - Three Point Percentage (Defensive)',
     '3PR - Three Point Rate (Offensive)',
     '3PRD - Three Point Rate (Defensive)',
-    'ADJ T. - Adjusted Tempo (Posessions per 40 Minutes)',
+    'Adj T. - Adjusted Tempo (Posessions per 40 Minutes)',
     'WAB - Wins Above Bubble'
 ]
 stats.forEach((stat) => {
@@ -100,15 +99,15 @@ stats.forEach((stat) => {
 
 
 // --------------------------------------------------------------------------
-// FUNCTION - CURATE/UPDATE PLOT(S) WHEN DROPDOWNs IS CHOSEN 
+// FUNCTION - CURATE/UPDATE PLOT(S) WHEN DROPDOWN IS CHOSEN 
 // --------------------------------------------------------------------------
 
 // function when all dropdowns are chosen & button is clicked
 function submit(){
     year = document.getElementById('yearDropdown').value
     round = document.getElementById('roundDropdown').value
-    stat = 'Seed'
-    // stat = document.getElementById('statsDropdown').value
+    // stat = 'Seed'
+    stat = document.getElementById('statsDropdown').value
     init(year, round, stat) // ethan
     console.log('did it work')
     // let ethanPlotTitle = `ethan this is the title placeholder for ur plot lalala`;
@@ -116,3 +115,38 @@ function submit(){
 };
 
 
+
+
+
+
+
+// let currentZoom = 1;
+// let minZoom = 1;
+// let maxZoom = 3;
+// let stepSize = 0.1;
+
+// let container = document.getElementById("image-container");
+
+// function zoomImage(direction)
+// {
+//     let newZoom = currentZoom + direction * stepSize;
+
+//     // Limit the zoom level to the minimum and maximum
+//     // values
+//     if (newZoom < minZoom || newZoom > maxZoom) {
+//         return;
+//     }
+
+//     currentZoom = newZoom;
+
+//     // Update the CSS transform of the image to scale it
+//     let image
+//         = document.querySelector("#image-container img");
+//     image.style.transform = "scale(" + currentZoom + ")";
+// }
+
+// container.addEventListener("click", function(event) {
+//     // Zoom in or out based on the scroll direction
+//     let direction = event.deltaY > 0 ? -1 : 1;
+//     zoomImage(direction);
+// });
