@@ -1,0 +1,73 @@
+* {
+    font-family:'Chivo';
+}
+
+.banner {
+    background-color: rgb(56,156,221);
+    padding: 30px; 
+    text-align: center; /* Center the text */
+    position: fixed;
+    width: 100%;
+    margin-top: -20px;
+    margin-left: -20px;
+    border:;
+}
+
+.banner h1 {
+    font-size: 2em; /* Make the heading larger */
+    color: white; /* Dark gray text color */
+}
+
+.main {
+    padding: 200px;
+    padding-bottom: 50px;
+}
+
+.main img {
+    width: 900px;
+}
+
+#bracket {
+    border-style: groove;
+    border-color: rgb(56,156,221);
+    border-radius: 5%;
+}
+ 
+#bracket {
+    display: none;
+}
+
+#bracket.visible {
+    display: block;
+}
+
+/* .dropdowns {
+    padding: 50px;
+} */
+
+
+.section-break {
+    border: 1px solid orange; 
+    border-radius: 10px; 
+    /* margin-top: 100px;" */
+}
+
+#bubble {
+    width: 50%;
+    height: 1000px%;
+}
+/* 
+#image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  #image-container img:hover {
+    cursor: zoom-in;
+  } */
