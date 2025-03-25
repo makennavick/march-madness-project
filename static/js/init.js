@@ -1,242 +1,182 @@
 
 
-// Create arrays of seeds who made it to each round
-async function roundArray(year, round, stat){
-    const response = await fetch('data/final_df.json');
+// Return array or object criteria from dropdown menus
+async function roundArray(year, round, stat, graphType){
+    // Fetch the json data
+    const response = await fetch('Data_cleaning/final_df.json');
     const data = await response.json();
 
-    console.log(data)
-    // returns team array once resolved
-    return new Promise((resolve) => {
+    // Encode round name to numeric
+    let numRound = false
+    if (round == 'Champions') numRound = 6
+    else if (round == 'Finals') numRound = 5
+    else if (round == 'Final Four') numRound = 4
+    else if (round == 'Elite Eight') numRound = 3
+    else if (round == 'Sweet Sixteen') numRound = 2
+    else if (round == 'Round of 32') numRound = 1
+    else if (round == 'Round of 64') numRound = 0
 
-        // Encode round name to numeric
-            // Explaination:
-                // If round selected is 'Sweet Sixteen'
-                // Gives teams that lost that in the Sweet Sixteen
-                // Not all teams that MADE the Sweet Sixteen
-            // To get all teams that made round or better:
-                // if (round >= numRound){
-        let numRound = false
-        if (round == 'Champions') numRound = 6
-        else if (round == 'Finals') numRound = 5
-        else if (round == 'Final Four') numRound = 4
-        else if (round == 'Elite Eight') numRound = 3
-        else if (round == 'Sweet Sixteen') numRound = 2
-        else if (round == 'Round of 32') numRound = 1
-        else if (round == 'Round of 64') numRound = 0
-
-        // Create array of teams for each round made
-        let madeToRound = []
-
-        // Loop through each team
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                let team = data[key];
-            
-                // Add teams' seeds into arrays
-
-                // Check Round
-                if (team['Round Finished'] >= numRound){
-                    // Check Year
-                    if (team['Year'] === year || isNaN(year)){
-                        madeToRound.push(parseInt(team[stat]))
-                    }
-
-                } 
-
+    // Create array of teams for each round made
+    let roundArr = []
+    // Loop through each team
+    for (const key in data) {
+        let team = data[key];
+    
+        // Add teams' stat into arrays
+        // Check Round
+        if (team['Round Finished'] >= numRound){
+            // Check Year
+            if (team['Year'] === year || isNaN(year)){
+                roundArr.push(parseFloat(team[stat]))
             }
         }
+    }
 
-        console.log('array function', madeToRound)
-
+    // Histogram uses array of values, Bar uses Object containing frequencies
+    if (graphType === 'hist'){return (roundArr)}
+    else{
         const countObject = {};
-        for (const element of madeToRound) {
+        for (const element of roundArr) {
             countObject[element] = (countObject[element] || 0) + 1;
         }
-        console.log(countObject)
-
-        resolve(countObject)
-    })
+        return (countObject)
+    }
 }
 
 
-// Create a histogram of team seeds that have made it to specific round
-// x=seed, y=freq
-async function createRoundHistogram(year, round, stat){
+// Returns a title that makes sense for dropdowns selected
+function titleOption(year, round, stat){
 
-    // Get array of teams that match dropdown criteria
-    let countObj = await roundArray(year, round, stat)
-    console.log('histogram', countObj)
+    console.log('title options', round)
+    let editedRound = ''
+    if (round == 'Champions') {
+        if (parseInt(year)) editedRound = 'tournament champion'
+        else editedRound = 'tournament champions'
+    } else editedRound = `teams the made the ${round}`
 
-    // // Create Histogram
-    // let trace = {
-    // x: Object.values(countObj),
-    // type: 'histogram',
-    // xbins: {
-    //     start: 1,  
-    //     end: 16,   
-    //     size: 1     
-    // },
-    // };
+    let editedYear = ''
+    if (parseInt(year)) editedYear = `in ${year}`
+    else editedYear = 'from 2008 - 2024'
 
-    // let layout = {
-    // title: {
-    //     text: `Frequncy of ${stat} that made ${round}`
-    // },
-    // xaxis: {
-    //     dtick: 1,
-    //     range: [1, 17],
-    //     tickvals: Array.from({length: 16}, (_, i) => i + 1.5),
-    //     title: {
-    //         text: `${stat}`,
-    //     }
-    // },
-    // yaxis: {
-    //     title: {
-    //     text: 'Frequency'
-    //     }
-    // },
-    // };
-
-    // var data = [trace];
-    // Plotly.newPlot('bubble', data, layout);
-
-
-    // Create Bar Chart
-    let trace = {
-        x: Object.keys(countObj),  
-        y: Object.values(countObj),  
-        type: 'bar',
-        marker: {
-            color: 'light blue',
-            line: { width: 1.5 }
-        }
-    };
-
-    let layout = {
-        title: `Frequency of ${stat} that made ${round}`,
-        xaxis: {
-            title: `${stat}`,
-            tickmode: "linear",
-            dtick: 1,  // Keep only integer labels
-            range: [0.5, 16.5] // Ensure bars are centered
-        },
-        yaxis: {
-            title: 'Frequency'
-        },
-        bargap: 0.2
-    };
-
-    Plotly.newPlot('bubble', [trace], layout);
-
+    return `${stat} of ${editedRound} ${editedYear}`
 }
 
 
-// On Dropdown options changed
-function dropdownChanged(year, round, stat){
-    createRoundHistogram(parseInt(year), round, stat)
-};
+// Create a bar graph of team seeds for year and round selected
+// Seed only
+async function createBar(year, round, stat){
+
+    try {
+        // Get object of team stats and frequencies that match dropdown criteria
+        let countObj = await roundArray(year, round, stat, 'bar')
+
+        // Create Bar Chart
+        let trace = {
+            x: Object.keys(countObj),  // Category
+            y: Object.values(countObj),  // Number of teams in category
+            type: 'bar',
+            marker: {
+                color: 'light blue',
+                line: { width: 1.5 }
+            },
+            // text: Object.values(countObj),  // Use y-values as hover text
+            // hoverinfo: Object.values(countObj),  // Show only the text values (frequency)
+        };
+
+        // Format Bar Chart
+        let layout = {
+            title: {
+                text: titleOption(year, round, stat)
+            },
+            xaxis: {
+                title: {
+                    text: stat,
+                },
+                tickmode: "linear",
+                range: [0.5, 16.5]
+            },
+            yaxis: {
+                title: {
+                    text: 'Frequency'
+                }
+            },
+            bargap: 0.2
+        };
+
+        // Display chart
+        Plotly.newPlot('bubble', [trace], layout);
+
+    } 
+    catch (error) {
+        console.error("Error in createHist:", error); // log if error in fetching data
+    }
+}
 
 
-// Testing function
+// Create a Histogram of team stat for year and round selected
+// Continuous data only
+async function createHist(year, round, stat){
+
+    try {
+        // Get array of teams that match dropdown criteria
+        let teamArr = await roundArray(year, round, stat, 'hist');
+        
+        // Create Histogram
+        let trace = {
+            x: teamArr,
+            type: 'histogram',
+            xbins: {
+                start: Math.floor(Math.min(...teamArr)),
+                end: Math.ceil(Math.max(...teamArr)),
+                size: (Math.ceil(Math.max(...teamArr)) - Math.floor(Math.min(...teamArr))) / 10
+            },
+        };
+
+        // Format Histogram
+        let layout = {
+            title: {
+                text: titleOption(year, round, stat)
+            },
+            xaxis: {
+                title: {
+                    text: `${stat}`,
+                }
+            },
+            yaxis: {
+                title: {
+                text: 'Frequency'
+                }
+            },
+        };
+
+        // Display Histogram
+        var data = [trace];
+        Plotly.newPlot('bubble', data, layout);
+
+    } 
+    catch (error) {
+        console.error("Error in createHist:", error); // log if error in fetching data
+    }
+}
+
+
+// Create Graph
 function init(year, round, stat){
-    dropdownChanged(year, round, stat)
+    if (['Conf', 'Seed'].includes(stat)){createBar(parseInt(year), round, stat, 'Bar')} // Categorical statistic, create bar graph
+    else createHist(parseInt(year), round, stat, 'Hist') // Numeric statistic, create histogram
 }
 
-init('2016', 'Elite Eight', 'Seed')
+// Create an initial graph when page is first loaded
+init('2024', 'Round of 32', 'Seed')
 
 
 
 
 
-// Order of Functions
-    // init(year, round, stat)
-        // calls dropdownChanged(year, round, stat)
-            // calls createRoundHistogram(year, round, stat)
-                // let teamArray = await roundArray(year, round, stat)
-            // Graph Updated
+// TO DO
+// Make sure labels so makes sense with each dropdown option
+// Fix hover information
+// Color graph 
+// Change other formatting?
+// Use of delete Conf option
 
-
-// TO DO LIST
-
-// Additional Graphs
-    // Add ability to include other stat ratings via another dropdown
-
-// All Columns in Dataset
-
-    // Filters
-        // Year: 2008
-        // Round Finished: 6
-
-    // Numeric (Histogram)
-        // 2P%: "54.8"
-        // 2P%D: "40.9"
-        // 3P%: "39.9"
-        // 3P%D: "34.0"
-        // 3PR: "29.2"
-        // 3PRD: "38.1"
-        // Adj T.: "69.5"
-        // AdjDE: 85.9
-        // AdjNR: 35.2
-        // AdjOE: 121.1
-        // DRB: "29.0"
-        // EFG%: "56.3"
-        // EFGD%: "44.8"
-        // FTR: "37.5"
-        // FTRD: "30.8"
-        // ORB: "38.0"
-        // WAB: "+9.9"
-        // TOR: "18.7"
-        // TORD: "22.9"
-
-    // Categorical (Bar Graph)
-        // Rec: "30–3"
-        // Conf: "B12"
-        // Seed: "1"
-
-    // Not sure how to use?
-        // G: "33"
-        // School: "Kansas"
-        // Barthag: ".9810"
-
-
-// Stat Definitions
-    // CONF	- Conference
-    // G - Games
-    // REC - Record
-    // ADJOE - Adjusted Offensive Efficiency
-    // ADJDE - Adjusted Defensive Efficiency
-    // BARTHAG - Power Rating (Change of beating average D1 Team)
-    // EFG%	- Effective Field Goal Percentage (Offensive)
-    // EFGD% - 	Effective Field Goal Percentage (Defensive)
-    // TOR - Turnover Percentage (Offensive)
-    // TORD	- Turnover Percentage (Defensive)
-    // ORB - Rebound Percentage (Offensive)
-    // DRB - Rebound Percentage (Defensive)
-    // FTR - Free Throw Rate (Offensive)
-    // FTRD - Free Throw Rate (Defensive)
-    // 2P% - Two Point Percentage (Offensive)
-    // 2P%D	- Two Point Percentage (Defensive)
-    // 3P% - Three Point Percentage (Offensive)
-    // 3P%D - Three Point Percentage (Defensive)
-    // 3PR - Three Point Rate (Offensive)
-    // 3PRD - Three Point Rate (Defensive)
-    // ADJ T. - Adjusted Tempo (Posessions per 40 Minutes)
-    // WAB - Wins Above Bubble
-
-async function getStats(){
-    const response = await fetch('data/final_df.json');
-    const data = await response.json();
-    console.log(data[0])
-
-    let stats = ['AdjOE', 'AdjDE', 'Barthag', 'EFG%', 'EFGD%', 'TOR', 'TORD', 'ORB', 'DRB', 'FTR', 'FTRD', '2P%', '2P%D', '3P%', '3P%D', '3PR', '3PRD', 'Adj T.', 'WAB']
-    stats.forEach((element) => {
-        let statArr = []
-        for (const key in data) {
-            statArr.push(parseFloat(data[key][element]))
-        }
-        console.log(`${element}: (${Math.ceil(Math.max(...statArr))} - ${Math.floor(Math.min(...statArr))})`)
-    });
-    
-}
-// getStats()

@@ -6,59 +6,142 @@
     <title>PROJECT 4 - MARCH MADNESS</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>
-    <link rel="stylesheet" href="static/css/style.css">
+    <!-- <link rel="stylesheet" href="static/css/style.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chivo">
 
 </head>
 <body>
-    <div id="title">
-        <h1>MARCH MADNESS PREDICTIONS</h1>
-    </div>
-    
-    <div>
-        <div class="dropdown">
-            <p><i>Choose a year:</i></p>
-            <select id="yearDropdown" onchange="yearChanged(this.value)">
-                <option disabled selected value> - </option>
-            </select>
+    <section class="header">
+        <h1 id="title">MARCH MADNESS</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#pastBrackets">PAST BRACKETS</a></li>
+                <li><a href="">YEARLY STATS</a></li>
+                <li><a href="">OFF/DEF STATS OVERVIEW</a></li>
+                <li><a href="">2025 PREDICTIONS</a></li>
+            </ul>
+        </nav>
+        <hr class="section-break">
+    </section>
+    <div class="actual-body">
+        <div class="container">
+            <section class="main">
+                <div id="pastBrackets">
+                    <hr class="section-break">
+                    <h3>REVIEW PAST BRACKETS</h3>
+                    <select id="bracketDropdown" onchange="bracketImage()">
+                        <option disabled selected value></option>
+                    </select>
+                    <br><br>
+                    <div id="image-container">
+                        <img id="bracket">
+                    </div>
+                    <br><br>
+                    <hr class="section-break" style="width:100%">
+                </div>
+            </section>
         </div>
-    </div>
-
-    <!--  -->
-    <div>
-        <div class="dropdown">
-            <p><i>Choose a year:</i></p>
-            <select id="roundDropdown" onchange="yearChanged(this.value)">
-                <option disabled selected value> - </option>
-            </select>
+        <div class="container">
+            <div class="dropdowns">
+                <h3>Diving into yearly statistics</h3>
+        
+                <!-- YEAR -->
+                <div>
+                    <p><i>Year:</i></p>
+                    <select id="yearDropdown">
+                        <option disabled selected value></option>
+                    </select>
+                </div>
+        
+                <!-- ROUND -->
+                <div>
+                    <p><i>Round:</i></p>
+                    <select id="roundDropdown">
+                        <option disabled selected value></option>
+                    </select>
+                </div>
+        
+                <!-- STATS -->
+                <div>
+                    <p><i>Stats:</i></p>
+                    <select id="statsDropdown">
+                        <option disabled selected value></option>
+                    </select>
+                </div>
+                
+                <!-- GENERATE PLOT -->
+                <br>
+                <button id="button" onclick="submit()">Generate plot</button>
+                <br><br>
+                
+            </div>
+            <!-- PLOT -->
+            <div id="bubble"></div>        
         </div>
-    </div>
-    <div>
-        <section class="main">
-            <h3>Description</h2>
-        </section>
-    </div>
-    
-    <div>
-        <section class="main">
-            <h3>Plots, analysis, etc.</h3>
-                <div id="ethanPlot">here is ethan's plot</div>
-        </section>
-    </div>
-
-    <div>
-        <section id="end-of-page">
-            <div class="sources">
-                <hr style="border: 1px solid orange; border-radius: 10px; margin-top: 100px;">
-                <div>Resources:
+        
+        <hr class="section-break">
+        <div class="container">
+            <section class="main">
+                <h3> Offensive/Defensive Analyses </h3>
+                <p>This graph shows key offensive metrics for teams that made it to each round.
                     <ul>
-                        <li> <a href="LINK TO OUR SOURCES">here is a null link</a> </li>
+                        <li>adjOE does significantly increase for teams that made it further.</li>
+                        <li>Turnover Rate (TOR) doesn’t change much</li>
+                    </ul></p>
+                <p>Next we will focus more on the middle metrics that are a bit harder to see
+                    <ul>
+                        <li>You can see a slight but steady increase in Effective Field Goal percentage (EFG%) and 2 point percentage (2P%) increase showing improved shot quality and execution.</li>
+                        <li>Free throw rate (FTR) and 3 point percentage (3P%) don’t seem to be a primary differentiator for teams making a deep run.</li>
+                        <li>Offensive Rebound (OFB) does show a slight upward trend suggesting teams are better at getting better at getting those rebounds offensively.</li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li>EFG% (Effective Field Goal %) has the strongest positive correlation.</li>
+                        <li>TOR (Turnover Rate) has a strong negative correlation — fewer turnovers = better offense.</li>
+                        <li>Other metrics like 2P%, 3P%, and ORB show moderate positive influence</li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li>AdjDE drops for teams who made it further in the tournament — meaning defensive efficiency gets better.</li>
+                        <li>EFGD%, 2P%D, and 3P%D all drop steadily — meaning elite teams defend both inside and outside shots effectively.</li>
+                        <li>TORD (Turnover Rate Forced) stays relatively stable </li> 
+                    </ul>
+                    <ul>
+                        <li>EFGD% (Effective Field Goal % Defense) has the strongest positive correlation. (0.68)</li>
+                        <li>2P%D (Opponent 2PT FG%) has a strong correlation (0.63) — Interior defense (rim protection) is critical to team defense</li>
+                        <li>3P%D (Opponent 3PT FG% has a moderate correlation (0.41) — Defending the arc isn’t as important as the paint and overall shot quality</li>
+                    </ul>
+                    <ul>
+                        <li>While top-tier defense is a common characteristic of deep tournament teams, elite offensive efficiency often serves as the differentiating factor among championship contenders.</li>
+                        <li>Strong defense is a baseline requirement for tournament success, but elite offense may ultimately determine how far a team advances.</li>
+                    </ul>
+                </p>
+            </section>
+        </div>
+        <div>
+            <hr class="section-break">
+            <section id="end-of-page">
+                <div class="sources">
+                    <h4>Resources</h6>
+                    <ul>
+                        <li> <a href="https://www.ncaa.com/basketball-men/d1/every-ncaa-bracket-1939-today-tournament-stats-records">Bracket images scraped from NCAA</a></li>
+                        <li> <a href="https://barttorvik.com/#">BartTorvik</a> </li>
+                        <li><a href='https://pngtree.com/freepng/vector-basketball-icon_4187184.html'>Basketball bullet png from pngtree.com</a></li>
                         <!-- <li> <a href="https://www.flaticon.com/free-icons/basketball" title="basketball icons">Basketball icons created by Good Ware - Flaticon</a></li> -->
                     </ul>
                 </div>
-            </div>
-        </section>
+                <div>
+                    <h6 style="color:black">CREDIT FOR THIS PROJECT GOES TO ETHAN DONOHO, ZACH REHFUSS, DUVOE MOUA, JONATHAN BIDON, MAKENNA VICK, & CHANDARA IN</h4>
+                </div>
+            </section>
+        </div>
+    </div>
 
+    
     <script src="static/js/index.js"></script>
+    <script src="static/js/init.js"></script>
 
 </body>
 </html>

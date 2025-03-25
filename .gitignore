@@ -4,4 +4,5 @@
 .DS_Store
 
 # makenna
-sketch.md
+static/webpage_stuff/sketch.md
+.vscode/settings.json
