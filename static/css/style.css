@@ -6,7 +6,7 @@
 
 .section-break {
     border: 1px solid orange; 
-    border-radius: 10px; 
+    border-radius: 100px; 
     padding: 1px;
 }
 
@@ -43,15 +43,16 @@ body {
     align-items: center;
 }
 
-.main img {
-    width: 1000px;
-    float: center;
+#pastBrackets {
+    text-align: center;
 }
 
 #bracket {
     border-style: groove;
     border-color: rgb(56,156,221);
     border-radius: 5%;
+    width: 1200px;
+    float: center;
 }
  
 #bracket {
@@ -115,4 +116,10 @@ ul {
 
 .navbar a:hover{
     background-color: hsl(38, 92%, 59%);
+}
+
+.matplotlib {
+    max-width: 500px;
+    padding-right: 100px;
+    /* max-height: auto; */
 }
