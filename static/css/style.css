@@ -70,8 +70,8 @@ body {
 
 
 #bubble {
-    width: 100%;
-    height: 500px;
+    /* width: 100%; */
+    /* height: 500px; */
     border: 3px solid orange;
     background-color: white; /* Make sure background is white */
     display: block; /* Ensure it's a block-level element */

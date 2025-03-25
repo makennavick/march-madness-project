@@ -59,6 +59,7 @@ let yearDropdown = d3.select('#yearDropdown');
 for (let year = 2008; year < 2025; year++) {
     yearDropdown.append("option").text(year)
 };
+yearDropdown.append('option').text('All years')
 
 // round
 let roundDropdown = d3.select('#roundDropdown');
@@ -71,7 +72,7 @@ rounds.forEach((round) => {
 // stats
 let statsDropdown = d3.select('#statsDropdown');
 let stats = [
-    'Conf - Conference',
+    // 'Conf - Conference',
     'Seed',
     'AdjOE - Adjust Offensive Efficiency',
     'AdjDE - Adjusted Defensive Efficiency',
