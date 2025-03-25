@@ -23,7 +23,7 @@ function loadPastBracketData() {
 
 // identify dropdown location in index.html & create dropdown
 let bracketDropdown = d3.select('#bracketDropdown');
-for (let year = 2024; year >= 1939; year--) {
+for (let year = 2025; year >= 1939; year--) {
     bracketDropdown.append("option").text(year)
 };
 
@@ -35,6 +35,9 @@ function bracketImage(){
         document.getElementById('bracket').src = bracketData[year];
         console.log('Updated image link:', bracketData[year]);
         // make border styling visible
+        document.querySelector('#bracket').classList.add('visible');
+    } else if (year==2025) {
+        document.getElementById('bracket').src = 'https://www.ncaa.com/_flysystem/public-s3/styles/original/public-s3/images/2025/03/24/2025-mens-sweet-16-bracket.jpg?itok=7Kc2ZHkf';
         document.querySelector('#bracket').classList.add('visible');
     } else {
         console.log('Bracket data for the selected year not loaded yet.');
@@ -106,14 +109,12 @@ stats.forEach((stat) => {
 function submit(){
     year = document.getElementById('yearDropdown').value
     round = document.getElementById('roundDropdown').value
-    // stat = 'Seed'
     stat = document.getElementById('statsDropdown').value
-    init(year, round, stat) // ethan
+    init(year, round, stat)
     console.log('did it work')
     // let ethanPlotTitle = `ethan this is the title placeholder for ur plot lalala`;
     // document.getElementById('ethanPlot').innerHTML = ethanPlotTitle;
 };
-
 
 
 

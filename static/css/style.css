@@ -1,25 +1,44 @@
 * {
     font-family:'Chivo';
+    background-color:whitesmoke;
+    scroll-behavior: smooth;
 }
 
-.banner {
+body {
+    padding-top: 300px;
+    padding-left: 50px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header {
     background-color: rgb(56,156,221);
-    padding: 30px; 
-    text-align: center; /* Center the text */
+    /* padding: 30px;  */
+    text-align: center;
     position: fixed;
     width: 100%;
-    margin-top: -20px;
-    margin-left: -20px;
-    border:;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    display: flex;
 }
 
-.banner h1 {
-    font-size: 2em; /* Make the heading larger */
+.header * {
+    background-color: rgb(56,156,221);
+}
+
+.header h1 {
+    padding-left: 15px;
+    font-size: 3em; /* Make the heading larger */
     color: white; /* Dark gray text color */
 }
 
 .main {
-    padding: 200px;
+    /* padding: 200px; */
     padding-bottom: 50px;
 }
 
@@ -41,21 +60,68 @@
     display: block;
 }
 
-/* .dropdowns {
-    padding: 50px;
-} */
-
+.dropdowns {
+    width: 40%;
+    margin-left: 30px;
+}
 
 .section-break {
     border: 1px solid orange; 
-    border-radius: 10px; 
-    /* margin-top: 100px;" */
+    /* border-radius: 10px;  */
 }
 
 #bubble {
     width: 50%;
-    height: 1000px%;
+    height: 500px;
+    border: 3px solid orange; 
 }
+
+ul {
+    list-style: none; /* Remove default bullet points */
+    padding-left: 20px; /* Optional: space for custom bullets */
+}
+
+.main ul li {
+    background-image: url("../webpage_stuff/bball_icon.png"); /* Custom bullet image */
+    background-size: 20px 20px; /* Adjust the size of the image */
+    background-repeat: no-repeat; /* Don't repeat the image */
+    background-position: left top; /* Position the bullet */
+    padding-left: 25px; /*Space between bullet and text*/
+    padding-bottom: 15px;
+}
+
+.sources {
+    padding-left: 10px;
+}
+
+.navbar {
+    background-color: orange;
+}
+.navbar ul{
+    list-style-type: none;
+    overflow: hidden;
+    display: inline-flex;
+}
+
+.navbar a{
+    color: whitesmoke;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    /* text-align: center; */
+}
+
+.navbar a:hover{
+    background-color: hsl(38, 92%, 59%);
+}
+
+/* ul {
+    margin: 0 0 0 32px;
+    line-height:1.5;
+    list-style-image: url("https://png.pngtree.com/png-vector/20190411/ourlarge/pngtree-vector-basketball-icon-png-image_927110.jpg");
+    list-style-position: outside;
+    font-size: 13;
+} */
 /* 
 #image-container {
     display: flex;
