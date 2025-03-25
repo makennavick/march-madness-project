@@ -105,7 +105,7 @@ async function createBar(year, round, stat){
 
         // Display chart
         Plotly.newPlot('bubble', [trace], layout);
-
+        console.log([trace], layout)
     } 
     catch (error) {
         console.error("Error in createHist:", error); // log if error in fetching data
