@@ -2,17 +2,17 @@
     font-family:'Chivo';
     background-color:whitesmoke;
     scroll-behavior: smooth;
+    color: rgb(49,48,45);
+}
+
+.section-break {
+    border: 1px solid orange; 
+    /* border-radius: 10px;  */
 }
 
 body {
-    padding-top: 300px;
+    padding-top: 150px;
     padding-left: 50px;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .header {
@@ -37,13 +37,19 @@ body {
     color: white; /* Dark gray text color */
 }
 
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .main {
-    /* padding: 200px; */
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
 }
 
 .main img {
-    width: 900px;
+    width: 1000px;
+    float: center;
 }
 
 #bracket {
@@ -65,13 +71,9 @@ body {
     margin-left: 30px;
 }
 
-.section-break {
-    border: 1px solid orange; 
-    /* border-radius: 10px;  */
-}
 
 #bubble {
-    width: 50%;
+    width: 100%;
     height: 500px;
     border: 3px solid orange; 
 }
