@@ -1,7 +1,8 @@
 
 
-// Return array or object criteria from dropdown menus
+// Return array or object based off of criteria from dropdown menus
 async function roundArray(year, round, stat, graphType){
+
     // Fetch the json data
     const response = await fetch('Data_cleaning/final_df.json');
     const data = await response.json();
@@ -17,29 +18,32 @@ async function roundArray(year, round, stat, graphType){
     else if (round == 'Round of 64') numRound = 0
 
     // Create array of teams for each round made
-    let roundArr = []
+    let criteriaArr = [] // Teams that meet dropdown criteria
+    let allYearsArr = [] // From all years to keep x-axis bounds constant
+
     // Loop through each team
     for (const key in data) {
         let team = data[key];
     
         // Add teams' stat into arrays
+        allYearsArr.push(parseFloat(team[stat]))
         // Check Round
         if (team['Round Finished'] >= numRound){
             // Check Year
             if (team['Year'] === year || isNaN(year)){
-                roundArr.push(parseFloat(team[stat]))
+                criteriaArr.push(parseFloat(team[stat]))
             }
         }
     }
 
     // Histogram uses array of values, Bar uses Object containing frequencies
-    if (graphType === 'hist'){return (roundArr)}
+    if (graphType === 'hist'){return {criteriaArr, allYearsArr}}
     else{
         const countObject = {};
-        for (const element of roundArr) {
+        for (const element of criteriaArr) {
             countObject[element] = (countObject[element] || 0) + 1;
         }
-        return (countObject)
+        return countObject
     }
 }
 
@@ -47,16 +51,15 @@ async function roundArray(year, round, stat, graphType){
 // Returns a title that makes sense for dropdowns selected
 function titleOption(year, round, stat){
 
-    console.log('title options', round)
     let editedRound = ''
     if (round == 'Champions') {
-        if (parseInt(year)) editedRound = 'tournament champion'
-        else editedRound = 'tournament champions'
-    } else editedRound = `teams the made the ${round}`
+        if (parseInt(year)) editedRound = 'Tournament Champion'
+        else editedRound = 'Tournament Champions'
+    } else editedRound = `Teams that Made the ${round}`
 
     let editedYear = ''
     if (parseInt(year)) editedYear = `in ${year}`
-    else editedYear = 'from 2008 - 2024'
+    else editedYear = 'From 2008 - 2024'
 
     return `${stat} of ${editedRound} ${editedYear}`
 }
@@ -68,7 +71,7 @@ async function createBar(year, round, stat){
 
     try {
         // Get object of team stats and frequencies that match dropdown criteria
-        let countObj = await roundArray(year, round, stat, 'bar')
+        let countObj  = await roundArray(year, round, stat, 'bar')
 
         // Create Bar Chart
         let trace = {
@@ -76,36 +79,38 @@ async function createBar(year, round, stat){
             y: Object.values(countObj),  // Number of teams in category
             type: 'bar',
             marker: {
-                color: 'light blue',
-                line: { width: 1.5 }
+                color: 'rgb(56, 156, 221)', // Bin Color
+                line: {
+                    color: 'white smoke',  // Border Color
+                    width: 1.5        // Border Thickness
+                }
             },
-            // text: Object.values(countObj),  // Use y-values as hover text
-            // hoverinfo: Object.values(countObj),  // Show only the text values (frequency)
+            hoverinfo: 'none' // No information on hover
         };
 
         // Format Bar Chart
         let layout = {
             title: {
-                text: titleOption(year, round, stat)
+                text: titleOption(year, round, stat) // Title of graph
             },
             xaxis: {
                 title: {
-                    text: stat,
+                    text: stat, // x-axis title
                 },
-                tickmode: "linear",
-                range: [0.5, 16.5]
+                tickmode: "linear", // Constant width of bins
+                range: [0.1, 16.9] // Range of bins
             },
             yaxis: {
                 title: {
-                    text: 'Frequency'
-                }
+                    text: 'Frequency' // y-axis title
+                },
+                dtick: 1 // Increment y-axis ticks by 1
             },
-            bargap: 0.2
+            bargap: 0.2 // Gap between bars
         };
 
         // Display chart
         Plotly.newPlot('bubble', [trace], layout);
-        console.log([trace], layout)
     } 
     catch (error) {
         console.error("Error in createHist:", error); // log if error in fetching data
@@ -119,33 +124,56 @@ async function createHist(year, round, stat){
 
     try {
         // Get array of teams that match dropdown criteria
-        let teamArr = await roundArray(year, round, stat, 'hist');
-        
+        let {criteriaArr: teamArr, allYearsArr: allYearsData} = await roundArray(year, round, stat, 'hist');
+
+        // Bounds of stat for all years and rounds so x-axis is static
+        let start = Math.floor(Math.min(...allYearsData))
+        let end = Math.ceil(Math.max(...allYearsData))
+        let size = (Math.ceil(Math.max(...allYearsData)) - Math.floor(Math.min(...allYearsData))) / 10
+
+        let tickVals = Array.from({length: 11}, (_, i) => start + i * size); // Array of x-tick values
+        let tickText = tickVals.map(val => val.toFixed(1)); // Round values to 1 decimal point
+
         // Create Histogram
         let trace = {
             x: teamArr,
             type: 'histogram',
+            // x-axis bounds
             xbins: {
-                start: Math.floor(Math.min(...teamArr)),
-                end: Math.ceil(Math.max(...teamArr)),
-                size: (Math.ceil(Math.max(...teamArr)) - Math.floor(Math.min(...teamArr))) / 10
+                start: start,
+                end: end,
+                size: size
             },
+            marker: {
+                color: 'rgb(56, 156, 221)', // Bin color
+                line: {
+                    color: 'white smoke', // Border color
+                    width: 1.5 // Border Thickness
+                }
+            },
+            hoverinfo: 'none' // No display on hover
         };
 
         // Format Histogram
         let layout = {
             title: {
-                text: titleOption(year, round, stat)
+                text: titleOption(year, round, stat) // Graph Title
             },
             xaxis: {
                 title: {
-                    text: `${stat}`,
-                }
+                    text: `${stat}`, // x-axis title
+                },
+                dtick: size, // Tick marks match bin size
+                tickmode: "array", // Reads tickVals as array
+                tickvals: tickVals,  // Set tick values at bin margins
+                ticktext: tickText,   // Labels match bin edges
+                range: [start - (size * 0.25), end + (size * 0.25)] // Shifts x-axis in slightly
             },
             yaxis: {
                 title: {
-                text: 'Frequency'
-                }
+                text: 'Frequency' // y-axis title
+                },
+                dtick: 1 // Increment y-axis ticks by 1
             },
         };
 
@@ -167,16 +195,5 @@ function init(year, round, stat){
 }
 
 // Create an initial graph when page is first loaded
-init('2024', 'Round of 32', 'Seed')
-
-
-
-
-
-// TO DO
-// Make sure labels so makes sense with each dropdown option
-// Fix hover information
-// Color graph 
-// Change other formatting?
-// Use of delete Conf option
+init('2024', 'Sweet Sixteen', 'AdjOE')
 
