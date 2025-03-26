@@ -195,5 +195,5 @@ function init(year, round, stat){
 }
 
 // Create an initial graph when page is first loaded
-init('2024', 'Sweet Sixteen', 'AdjOE')
+init('2024', 'Sweet Sixteen', 'Seed')
 
