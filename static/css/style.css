@@ -137,31 +137,39 @@ ul {
     background-color: hsl(38, 92%, 59%);
 }
 
+.analysis {
+    /* float: left; */
+    /* width: 48%; */
+    margin-right: 2%;
+    align-items: center;
+    /* 
+    display: flex; */
+}
 .matplotlib {
-    max-width: 100%;
+    /* width: 500px; */
+    /* border: 3px solid orange; */
     height: auto;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
+    /* float: right; */
+    width: 100%;
+    /* margin-right: 50px; */
     /* padding-right: 100px; */
     /* max-height: auto; */
 }
 
-#analysis {
-    float: left;
-    width: 48%;
-    margin-right: 2%;
-    /* display: flex; */
+img {
+    
 }
 
-#analysis-images {
+/* #analysis-images {
     float: right;
     width: 48%;
     margin-right: 50px;
-    /* display: flex; */
-}
+} */
 
 #model {
     border: 3px solid orange;
-    max-width:1300px;
+    max: width 100%;;
     margin: auto;
     text-align:center;
 }
