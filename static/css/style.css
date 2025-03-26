@@ -1,6 +1,7 @@
 * {
     font-family:'Chivo';
     scroll-behavior: smooth;
+    scroll-padding-top: 220px;
     color: rgb(49,48,45);
 }
 
@@ -14,6 +15,7 @@ body {
     padding-top: 200px;
     padding-left: 50px;
     background-color: whitesmoke;
+    margin: 0;
 }
 
 .header {
@@ -45,17 +47,28 @@ body {
 
 #pastBrackets {
     text-align: center;
+    margin: auto;
+}
+
+#image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
 }
 
 #bracket {
     border-style: groove;
     border-color: rgb(56,156,221);
     border-radius: 5%;
-    width: 1200px;
-    float: center;
-}
- 
-#bracket {
+    width: 80%;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
+    /* float: center; */
     display: none;
 }
 
@@ -72,6 +85,7 @@ body {
 #bubble {
     /* width: 100%; */
     /* height: 500px; */
+    margin-right: 100px;
     border: 3px solid orange;
     background-color: white; /* Make sure background is white */
     display: block; /* Ensure it's a block-level element */
@@ -104,12 +118,14 @@ ul {
     list-style-type: none;
     overflow: hidden;
     display: inline-flex;
+    padding-top: 30px;
 }
 
 .navbar a{
     color: whitesmoke;
     text-decoration: none;
     padding: 15px;
+    /* padding-top: 45px; */
     display: block;
     text-align: center;
 }
@@ -120,6 +136,23 @@ ul {
 
 .matplotlib {
     max-width: 500px;
-    padding-right: 100px;
+    /* padding-right: 100px; */
     /* max-height: auto; */
+}
+
+#analysis {
+    float: left;
+    /* display: flex; */
+}
+
+#analysis-images {
+    float: right;
+    /* display: flex; */
+}
+
+#model {
+    border: 3px solid orange;
+    max-width:1300px;
+    margin: auto;
+    text-align:center;
 }
