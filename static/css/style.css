@@ -42,7 +42,10 @@ body {
 .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    padding-left: 0;
+    padding-right: 0;
+    /* align-items: center; */
 }
 
 #pastBrackets {
@@ -135,18 +138,24 @@ ul {
 }
 
 .matplotlib {
-    max-width: 500px;
+    max-width: 100%;
+    height: auto;
+    padding-bottom: 50px;
     /* padding-right: 100px; */
     /* max-height: auto; */
 }
 
 #analysis {
     float: left;
+    width: 48%;
+    margin-right: 2%;
     /* display: flex; */
 }
 
 #analysis-images {
     float: right;
+    width: 48%;
+    margin-right: 50px;
     /* display: flex; */
 }
 
