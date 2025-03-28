@@ -12,47 +12,47 @@ GOAL - predicting March Madness Sweet 16 outcome
 
 ### Data Cleaning (DuVoe Moua)
 1. Initial Table Extraction\
-&nbsp;- Used pandas.read_html() to retrieve HTML tables for a given year from the BartTorvik team stats page.
+&nbsp;- Used pandas.read_html() to retrieve HTML tables for a given year from the BartTorvik team stats page.\
 &nbsp;- Selected the first table and dropped the multi-level column index for simplicity.
 
 2. Team Filtering\
 &nbsp;- Filtered the dataset to only include rows where the Team name contains "seed" (indicating NCAA tournament participants).
 
 3. Column Cleaning\
-&nbsp;- Identified statistical columns that included extra ranking/notes (e.g., "121.1 2") and extracted only the main value.
-&nbsp;- Columns cleaned include:
-&nbsp;&nbsp;- Efficiency (AdjOE, AdjDE)
-&nbsp;&nbsp;- Shooting percentages (EFG%, 2P%, 3P%, etc.)
+&nbsp;- Identified statistical columns that included extra ranking/notes (e.g., "121.1 2") and extracted only the main value.\
+&nbsp;- Columns cleaned include:\
+&nbsp;&nbsp;- Efficiency (AdjOE, AdjDE)\
+&nbsp;&nbsp;- Shooting percentages (EFG%, 2P%, 3P%, etc.)\
 &nbsp;&nbsp;- Turnover rates, rebound rates, tempo, and others.
 
 4. Text Extraction\
-&nbsp;- Using regex, extracted additional structured information from the Team field:
-&nbsp;&nbsp;- School Name – e.g., "Kansas" from "Kansas 1 seed, CHAMPS"
-&nbsp;&nbsp;- Seed – e.g., "1"
+&nbsp;- Using regex, extracted additional structured information from the Team field:\
+&nbsp;&nbsp;- School Name – e.g., "Kansas" from "Kansas 1 seed, CHAMPS"\
+&nbsp;&nbsp;- Seed – e.g., "1"\
 &nbsp;&nbsp;- Round Finished – e.g., "CHAMPS", "Final Four", etc.
 
 5. Loop Through All Years (2008–2025)\
-&nbsp;- Repeated the above process for each year and stored the cleaned DataFrame in a list.
+&nbsp;- Repeated the above process for each year and stored the cleaned DataFrame in a list.\
 &nbsp;- Combined all yearly data using pd.concat().
 
 6. Added new metrics and values\
-&nbsp;- Adjusted Net Rating (AdjNR) = AdjOE - AdjDE
-&nbsp;- Converted Round Finished to a numeric scale for modeling or ranking purposes:
-&nbsp;&nbsp;- R68/R64: 0
-&nbsp;&nbsp;- R32: 1
-&nbsp;&nbsp;- Sweet Sixteen: 2
-&nbsp;&nbsp;- Elite Eight: 3
-&nbsp;&nbsp;- Final Four: 4
-&nbsp;&nbsp;- Finals: 5
-&nbsp;&nbsp;- CHAMPS: 6
+&nbsp;- Adjusted Net Rating (AdjNR) = AdjOE - AdjDE\
+&nbsp;- Converted Round Finished to a numeric scale for modeling or ranking purposes:\
+&nbsp;&nbsp;- R68/R64: 0\
+&nbsp;&nbsp;- R32: 1\
+&nbsp;&nbsp;- Sweet Sixteen: 2\
+&nbsp;&nbsp;- Elite Eight: 3\
+&nbsp;&nbsp;- Final Four: 4\
+&nbsp;&nbsp;- Finals: 5\
+&nbsp;&nbsp;- CHAMPS: 6\
 &nbsp;- Cleared "Round Finished" data for 2025 since the tournament hasn’t concluded.
 
 7. Final dataframe\
 &nbsp;- Used only columns needed in new dataframe.
 
 8. Export\
-&nbsp;- Saved the final DataFrame to:
-&nbsp;&nbsp;- barttorvik_all_years.csv
+&nbsp;- Saved the final DataFrame to:\
+&nbsp;&nbsp;- barttorvik_all_years.csv\
 &nbsp;&nbsp;- final_df.json
 
 ### Webpage Design (Makenna Vick)
