@@ -1,7 +1,7 @@
 # Sweet 16 Predictions
 
 ## Project overview
-This repository uses a deep learning model to create predictions for the NCAA Men's Basketball Tournament (March Madness). This model specifically predicts if teams will make the Sweet Sixteen based off of a number of statistics from the regular season. A webpage was created ([here](https://makennavick.github.io/march-madness-project/)) that displays previous tournament brackets, visualizations of specific statistics, offensive and defensive statistical analysis, and analysis of the deep learning model. 
+This repository uses a deep learning model to create predictions for the NCAA Men's Basketball Tournament (March Madness). This model specifically predicts if teams will make the Sweet Sixteen based off of a number of statistics from the regular season. A webpage was created ([here](https://makennavick.github.io/march-madness-project/)) that displays various visualizations and some of our analysis.
 
 
 ## Repo
@@ -56,9 +56,9 @@ This repository uses a deep learning model to create predictions for the NCAA Me
 &nbsp;&nbsp;&nbsp;&nbsp;- final_df.json
 
 ### Webpage Design (Makenna Vick)
+Visit our [webpage](makennavick.github.io/march-madness-project) to review past brackets, observe yearly statistics and analyses of offensive/defensive metrics, and see which teams our model believes should have made it to the 2025 Sweet 16.
 
-
-
+Index.html & the static folder contains all code for our [webpage](makennavick.github.io/march-madness-project). Although all of our analysis in this project is done using data from 2008-2024, we still wanted to be able to review past brackets since the tournament began in 1939 - so we built a scraper ([get_past_brackets.ipynb](webpage_stuff/get_past_brackets.ipynb)) that pulls all links to the final bracket images from the NCAA website, creates a dictionary (with the year as key and the link as value), and exports this dictionary as a text file (which is later read into the html).
 
 ### Yearly Statistic Visualizations (Ethan Donoho)
 The init.js file contains all the code for creating visualization under the 'Yearly Stats' section of the webpage. On the webpage, once the 'Year', 'Round', and 'Stat' dropdowns have all been selected and the 'Generate Plot' button has been pushed, the init.js file will use the selected criteria to create the corresponding visualization. The 'Year' dropdown selects which year's tournament the histogram will display. The 'Round' dropdown will display all teams that has made it to at least the chosen round in the tournament. The 'Stat' dropdown will determine which statistic will be displayed for each team that meets the given year and round. A histogram or bar graph is created displaying the given criteria. This file fetches data from the final_df.json file, found in the Data Cleaning folder of the repository. 
