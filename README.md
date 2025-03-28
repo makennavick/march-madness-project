@@ -83,6 +83,9 @@ In the project, I utilized the barttorvik_all_years.csv to create visualizations
 
 Interactive Dashboards are used to filter by year, team, region or round and also integrate real time date for live tournament tracking. The graphs are shown to help the fans to see the results of each
 
+### Link to presentation
+https://docs.google.com/presentation/d/1_3Up47FCoyEmb-m70hu4wmNj1OfEH_bBMaliLEOXrh8/edit#slide=id.g8e8bc3dedf_0_453.
+
 
 ## Resources
 https://barttorvik.com/#
